@@ -15,6 +15,10 @@ class Task
    tasks
   end
 
+  def save
+    DB.exec("INSERT INTO tasks (description) VALUES ('#{@description}');")
+  end
+
   def ==(another_task)
     self.description().==(another_task.description())
   end
