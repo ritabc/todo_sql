@@ -62,8 +62,7 @@ describe(List) do
       task2 = Task.new({:description => "Learn Thing 2", :list_id => my_list.id, :due_date => Date.new(2018,7,18)})
       task1.save
       task2.save
-      binding.pry
-      expect(my_list.sort_tasks).to(eq([task1, task2]))
+      expect(my_list.sort_tasks).to(eq([task2, task1]))
     end
   end
 

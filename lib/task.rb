@@ -22,9 +22,7 @@ class Task
   end
 
   def save
-    # formatted_date = @due_date.strftime("%Y-%m-%d")
-    # binding.pry
-    DB.exec("INSERT INTO tasks (description, list_id, due_date) VALUES ('#{@description}', #{@list_id}, #{@due_date});")
+    DB.exec("INSERT INTO tasks (description, list_id, due_date) VALUES ('#{@description}', #{@list_id}, '#{@due_date}');")
   end
 
   def ==(another_task)

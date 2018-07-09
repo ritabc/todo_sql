@@ -35,13 +35,13 @@ class List
   end
 
   def sort_tasks
-    binding.pry
-    returned_tasks = DB.exec("SELECT * FROM tasks WHERE list_id =(#{@id});")
+    returned_tasks = DB.exec("SELECT * FROM tasks WHERE list_id =(#{@id}) ORDER BY due_date;")
+    # tasks_by_list = self.list_all_tasks
     tasks_to_sort = []
     returned_tasks.each do |task|
       description = task.fetch("description")
       list_id = task.fetch("list_id").to_i
-      due_date = task.fetch("due_date").to_date
+      due_date = task.fetch("due_date")
       tasks_to_sort.push(Task.new({:description => description, :list_id => list_id, :due_date => due_date}))
     end
     tasks_to_sort
