@@ -46,11 +46,25 @@ describe(List) do
     it("lists all the tasks involved in a given list_id") do
       my_list = List.new({:name => 'list1', :id => nil})
       my_list.save
-      task1 = Task.new({:description => "Learn Thing 1", :list_id => my_list.id})
-      task2 = Task.new({:description => "Learn Thing 2", :list_id => my_list.id})
+      task1 = Task.new({:description => "Learn Thing 1", :list_id => my_list.id, :due_date => Date.new(2018,7,20)})
+      task2 = Task.new({:description => "Learn Thing 2", :list_id => my_list.id, :due_date => Date.new(2018,7,20)})
       task1.save
       task2.save
       expect(my_list.list_all_tasks).to(eq([task1, task2]))
     end
   end
+
+  describe("#sort_tasks") do
+    it("sorts tasks in the list by due date") do
+      my_list = List.new({:name => 'list1', :id => nil})
+      my_list.save
+      task1 = Task.new({:description => "Learn Thing 1", :list_id => my_list.id, :due_date => Date.new(2018,7,20)})
+      task2 = Task.new({:description => "Learn Thing 2", :list_id => my_list.id, :due_date => Date.new(2018,7,18)})
+      task1.save
+      task2.save
+      binding.pry
+      expect(my_list.sort_tasks).to(eq([task1, task2]))
+    end
+  end
+
 end

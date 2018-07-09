@@ -28,9 +28,23 @@ class List
     returned_tasks_by_list.each() do |task|
       description = task.fetch("description")
       list_id = task.fetch("list_id").to_i() # The information comes out of the database as a string.
-      tasks.push(Task.new({:description => description, :list_id => list_id}))
+      due_date = task.fetch("due_date")
+      tasks.push(Task.new({:description => description, :list_id => list_id, :due_date => due_date}))
     end
     tasks
+  end
+
+  def sort_tasks
+    binding.pry
+    returned_tasks = DB.exec("SELECT * FROM tasks WHERE list_id =(#{@id});")
+    tasks_to_sort = []
+    returned_tasks.each do |task|
+      description = task.fetch("description")
+      list_id = task.fetch("list_id").to_i
+      due_date = task.fetch("due_date").to_date
+      tasks_to_sort.push(Task.new({:description => description, :list_id => list_id, :due_date => due_date}))
+    end
+    tasks_to_sort
   end
 
   def ==(another_list)
