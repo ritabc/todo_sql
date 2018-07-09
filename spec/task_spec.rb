@@ -2,6 +2,7 @@ require("rspec")
 require("pg")
 require("task")
 require("spec_helper")
+require('pry')
 
 describe(Task) do
   describe(".all") do

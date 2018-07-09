@@ -22,7 +22,19 @@ class List
     @id = result.first().fetch("id").to_i()
   end
 
+  def list_all_tasks
+    returned_tasks_by_list = DB.exec("SELECT * FROM tasks WHERE list_id = (#{@id});")
+    tasks = []
+    returned_tasks_by_list.each() do |task|
+      description = task.fetch("description")
+      list_id = task.fetch("list_id").to_i() # The information comes out of the database as a string.
+      tasks.push(Task.new({:description => description, :list_id => list_id}))
+    end
+    tasks
+  end
+
   def ==(another_list)
     self.name().==(another_list.name()).&(self.id().==(another_list.id()))
   end
+
 end
