@@ -42,6 +42,7 @@ describe(List) do
       expect(list1).to(eq(list2))
     end
   end
+
   describe("#list_all_tasks") do
     it("lists all the tasks involved in a given list_id") do
       my_list = List.new({:name => 'list1', :id => nil})
@@ -65,5 +66,16 @@ describe(List) do
       expect(my_list.sort_tasks).to(eq([task2, task1]))
     end
   end
+
+  describe(".find") do
+    it("returns a list by its ID") do
+      test_list = List.new({:name => "Epicodus stuff", :id => nil})
+      test_list.save
+      test_list2 = List.new({:name => "Home stuff", :id => nil})
+      test_list2.save
+      expect(List.find(test_list2.id)).to(eq(test_list2))
+    end
+  end
+
 
 end
