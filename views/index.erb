@@ -3,4 +3,42 @@
 <div class="container">
   <a href="/lists">View All Lists</a>
   <a href="/lists/new">Add New List</a>
+
+<p>Create a new list:</p>
+
+<form action="/lists" method="post">
+  <label for="name"> Assign a name to your list: </label>
+  <input type="text" name="name" id="name">
+  <button type="submit">Add list</button>
+</form>
+
+  <h3>Add a task to any list: </h3>
+  <form action="/tasks" method="post">
+    <label for="list_id">Select a List</label>
+    <select id="list_id" name="list_id" type="text">
+      <% @lists.each do |list| %>
+        <option value="<%= list.id %>"> <%=list.name %></option>
+        <% end %>
+
+    </select>
+    <label for="description">Description of the task: </label>
+    <input type="text" name="description" id="description">
+    <button type="submit">Add task</button>
+  </form>
+
+
+  <% if @lists.any? %>
+  <h3>Here are all the tasks in this list:</h3>
+
+  <ul>
+    <% @lists.each do |list| %>
+  <li><a href="/lists/<%= list.id() %>"><%= list.name() %></a></li>
+  <% end %>
+  </ul>
+
+  <% else %>
+    <p>There are no tasks on this list!</p>
+  <%end%>
+
+
 </div>
